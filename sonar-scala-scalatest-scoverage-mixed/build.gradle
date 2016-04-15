@@ -1,0 +1,38 @@
+
+
+
+apply plugin: "java"
+apply plugin: 'scala'
+apply plugin: "com.github.maiflai.scalatest"
+apply plugin: 'scoverage'
+
+
+
+
+tasks.withType(Test)  {
+    maxParallelForks = 1
+}
+
+dependencies {
+    scoverage "org.scoverage:scalac-scoverage-plugin_2.11:1.1.0"
+    scoverage "org.scoverage:scalac-scoverage-runtime_2.11:1.1.0"
+
+    runtime "org.scala-lang:scala-compiler:2.11.7"
+    compile "org.scala-lang:scala-library:2.11.7"
+
+    testCompile "org.scalatest:scalatest_2.11:2.2.5"
+    testRuntime "org.pegdown:pegdown:1.1.0"
+}
+
+
+sonarqube {
+    properties {
+
+        property "sonar.junit.reportsPath", "$buildDir/test-results"
+        property "sonar.scoverage.reportPath", "$buildDir/reports/scoverage/scoverage.xml"
+        property "sonar.scala.junit.reportsPath", "$buildDir/test-results"
+
+    }
+}
+
+rootProject.tasks["sonarqube"].dependsOn reportScoverage

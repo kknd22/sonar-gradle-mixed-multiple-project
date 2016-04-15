@@ -1,0 +1,6 @@
+
+rootProject.name = 'sonar-gradle-mixed-multiple-project'
+
+include 'sonar-java-junit-jacoco-mixed'
+include 'sonar-java-scalatest-jacoco-mixed'
+include 'sonar-scala-scalatest-scoverage-mixed'

@@ -1,0 +1,26 @@
+
+apply plugin: "java"
+apply plugin: 'jacoco'
+//apply plugin: "org.sonarqube"
+
+
+
+
+dependencies {
+
+    testCompile "junit:junit:4.12"
+}
+
+
+
+
+sonarqube {
+    properties {
+
+        property "sonar.sources", "src/main/java"
+
+        property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
+        property "sonar.junit.reportsPath", "$buildDir/test-results"
+
+    }
+}

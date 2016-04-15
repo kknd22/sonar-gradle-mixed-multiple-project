@@ -9,3 +9,10 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+.idea/
+
+## File-based project format:
+*.ipr
+*.iws
+*.iml

@@ -1,0 +1,37 @@
+
+
+apply plugin: "java"
+apply plugin: 'jacoco'
+//apply plugin: "org.sonarqube"
+apply plugin: 'scala'
+
+
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+
+dependencies {
+
+    runtime "org.scala-lang:scala-compiler:2.11.7"
+    compile "org.scala-lang:scala-library:2.11.7"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.scalatest:scalatest_2.11:2.2.5"
+}
+
+version = "1.0.0.0"
+
+
+sonarqube {
+    properties {
+
+        property "sonar.sources", "src/main/java"
+        property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
+        property "sonar.junit.reportsPath", "$buildDir/test-results"
+        property "sonar.scala.junit.reportsPath", "$buildDir/test-results"
+
+    }
+}
