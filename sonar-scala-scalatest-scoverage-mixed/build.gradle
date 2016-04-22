@@ -31,22 +31,22 @@ dependencies {
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
 }
 
-task findbugs(type: FindBugs, dependsOn : [compileScala]) {
+task findSecurityBugs(type: FindBugs, dependsOn : [compileScala]) {
 
-    classes = fileTree(buildDir).include("**/*.class");
-    source = fileTree('src').include("**/*.scala");
+    classes = fileTree("${buildDir}/classes").include("**/*.class");
+    source = fileTree('src/main').include("**/*.scala");
     classpath = files()
     pluginClasspath = project.configurations.findbugsPlugins
 
     findbugs {
-        toolVersion = "3.0.0"
+        toolVersion = "3.0.1"
         sourceSets = [sourceSets.main]
         ignoreFailures = true
-        reportsDir = file("$project.buildDir/findbugsReports")
+        reportsDir = file("${project.buildDir}/findbugsReports")
         effort = "max"
         reportLevel = "high"
-        includeFilter = file("$projectDir/findbugs-security-include.xml")
-        excludeFilter = file("$projectDir/findbugs-security-exclude.xml")
+        includeFilter = file("${projectDir}/findbugs-security-include.xml")
+        excludeFilter = file("${projectDir}/findbugs-security-exclude.xml")
     }
 }
 sonarqube {
