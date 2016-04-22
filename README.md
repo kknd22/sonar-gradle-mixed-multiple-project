@@ -4,7 +4,7 @@ try to find out what find-sec-bug can do with scala byte code
 
 https://github.com/find-sec-bugs/find-sec-bugs/issues/186
 
-/.gradlew findSecurityBug
+./gradlew findSecurityBug
 
 then check the findbug report under the build.
 
