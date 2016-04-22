@@ -28,7 +28,7 @@ dependencies {
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
 }
 
-task findSecurityBugs(type: FindBugs, dependsOn : [compileScala]) {
+task findSecurityBugs(type: FindBugs, dependsOn : [compileJava]) {
 
     classes = fileTree("$buildDir/classes").include("**/*.class");
     source = fileTree('src/main').include("**/*.java");
