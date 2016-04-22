@@ -1,5 +1,9 @@
 package com.example.integration
 
+import java.net.Socket
+import java.util.Random
+
+
 object PrimeNumberHelperScala {
 
     @throws(classOf[Exception])
@@ -26,5 +30,13 @@ object PrimeNumberHelperScala {
         return true
     }
 
+    def scaGenerateSecretToken() : String  = {
+        val r = new Random()
+        return r.nextLong().toHexString;
+    }
 
+    @throws[Exception]
+    def scaOwsap() {
+        val soc: Socket = new Socket("www.google.com", 80)
+    }
 }

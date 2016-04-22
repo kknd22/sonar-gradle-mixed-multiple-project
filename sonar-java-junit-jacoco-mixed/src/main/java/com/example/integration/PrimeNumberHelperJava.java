@@ -1,5 +1,8 @@
 package com.example.integration;
 
+import java.net.Socket;
+import java.util.Random;
+
 public class PrimeNumberHelperJava {
 
     private PrimeNumberHelperJava() {
@@ -31,5 +34,12 @@ public class PrimeNumberHelperJava {
         return result;
     }
 
+    public String generateSecretToken() {
+        Random r = new Random();
+        return Long.toHexString(r.nextLong());
+    }
 
+    public void owsap() throws Exception {
+        Socket soc = new Socket("www.google.com",80);
+    }
 }
