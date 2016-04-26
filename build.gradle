@@ -10,9 +10,15 @@ buildscript {
     }
 }
 
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
 apply plugin: "idea"
 apply plugin: "java"
 apply plugin: "org.sonarqube"
+apply plugin: 'findbugs'
 
 version = "1.0.0.0-SNAPSHOT"
 
@@ -24,6 +30,40 @@ sonarqube {
     }
 }
 
+dependencies {
+
+    findbugs 'com.google.code.findbugs:findbugs:3.0.1'
+    findbugs configurations.findbugsPlugins.dependencies
+
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
+}
+
+task findSecurityBugs(type: FindBugs, dependsOn : [compileJava]) {
+
+    classes = fileTree(project.rootDir.absolutePath).include("**/*.class")
+    source = fileTree(project.rootDir.absolutePath).include("**/*.java").include("**/*.scala")
+    classpath = files()
+    pluginClasspath = project.configurations.findbugsPlugins
+
+    findbugs {
+        toolVersion = "3.0.1"
+        sourceSets = [sourceSets.main]
+        ignoreFailures = true
+        reportsDir = file("$project.buildDir/findbugsReports")
+        effort = "max"
+        reportLevel = "low"
+
+        includeFilter = file("$projectDir/findbugs-security-include.xml")
+        excludeFilter = file("$projectDir/findbugs-security-exclude.xml")
+    }
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
 
 
 subprojects { sub ->

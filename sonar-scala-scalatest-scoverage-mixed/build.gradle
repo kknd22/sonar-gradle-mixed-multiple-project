@@ -5,7 +5,6 @@ apply plugin: "java"
 apply plugin: 'scala'
 apply plugin: "com.github.maiflai.scalatest"
 apply plugin: 'scoverage'
-apply plugin: 'findbugs'
 
 
 
@@ -23,32 +22,8 @@ dependencies {
     testCompile "org.scalatest:scalatest_2.11:2.2.5"
     testRuntime "org.pegdown:pegdown:1.1.0"
 
-    // ------------------------------------------------------------
-    findbugs 'com.google.code.findbugs:findbugs:3.0.1'
-    findbugs configurations.findbugsPlugins.dependencies
-
-    // Here we mention findsecbugs plugin
-    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
 }
 
-task findSecurityBugs(type: FindBugs, dependsOn : [compileScala]) {
-
-    classes = fileTree("${buildDir}/classes").include("**/*.class");
-    source = fileTree('src/main').include("**/*.scala");
-    classpath = files()
-    pluginClasspath = project.configurations.findbugsPlugins
-
-    findbugs {
-        toolVersion = "3.0.1"
-        sourceSets = [sourceSets.main]
-        ignoreFailures = true
-        reportsDir = file("${project.buildDir}/findbugsReports")
-        effort = "max"
-        reportLevel = "low"
-        includeFilter = file("${projectDir}/findbugs-security-include.xml")
-        excludeFilter = file("${projectDir}/findbugs-security-exclude.xml")
-    }
-}
 sonarqube {
     properties {
 
